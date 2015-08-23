@@ -18,10 +18,9 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'pdf-reader'
-  spec.add_runtime_dependency 'csv'
+  spec.add_runtime_dependency 'pdf-reader', '~> 1.3'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rake', '~> 10.4'
+  spec.add_development_dependency 'rubocop', '~> 0.33'
 end
