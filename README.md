@@ -1,6 +1,6 @@
-# FnbPdfToCsv
+# FNB PDF Convert to CSV
 
-TODO: Write a gem description
+This gem provides the ability to convert a PDF FNB statement to a CSV file or statement.
 
 ## Installation
 
@@ -18,7 +18,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+#!/usr/bin/env ruby
+require 'thor'
+require 'fnb_pdf_to_csv'
+
+class Converter < Thor
+  desc 'csvfile source destination', 'Convert the PDF from source to destination. Destination will be a plain CSV file'
+  def csvfile(from, to)
+    parser = FnbPdfToCsv.parse from
+    parser.output to
+  end
+
+  desc 'file source destination', 'Convert the PDF from source to destination. Destination will be a tabbed CSV file'
+  def file(from, to)
+    parser = FnbPdfToCsv.parse from
+    parser.output to, "\t"
+  end
+
+  desc 'statement source destination', 'Convert the PDF from source to destination. Destination will mimick a FNB statement'
+  def statement(from, to)
+    parser = FnbPdfToCsv.parse from
+    parser.statement to
+  end
+end
+
+Converter.start(ARGV)
+```
 
 ## Contributing
 
