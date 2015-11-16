@@ -5,7 +5,7 @@ require 'csv'
 class FnbPdfToCsv
   attr_reader :lines
 
-  AMOUNT = '\(?[0-9][0-9,]*\.[0-9]{2}\)?(Cr)?'
+  AMOUNT = '\(?[0-9][0-9,]*\.[0-9]{2}\)?\s?(Cr)?'
   DATE   = '\d{2} \w{3}'
 
   def initialize file
