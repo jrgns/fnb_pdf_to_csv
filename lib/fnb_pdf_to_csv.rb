@@ -5,7 +5,7 @@ require 'csv'
 class FnbPdfToCsv
   attr_reader :lines
 
-  AMOUNT = '\(?[0-9][0-9,]*\.[0-9]{2}\)?\s?(Cr)?'
+  AMOUNT = '\(?[0-9][0-9, ]*\.[0-9]{2}\)?\s?(Cr)?'
   DATE   = '\d{2} \w{3}'
 
   def initialize file
@@ -62,7 +62,7 @@ class FnbPdfToCsv
   end
 
   def parse_line line
-    line.match(/^\s*(#{DATE})(.*?)(#{AMOUNT})\s+(#{AMOUNT})(\s+#{AMOUNT})?$/) do |m|
+    line.match(/^\s*(#{DATE})(.*?)(#{AMOUNT})(\s+#{AMOUNT})?(\s+#{AMOUNT})?/) do |m|
       @lines.push mangle_line!(m.to_a)
     end
   end
@@ -74,6 +74,7 @@ class FnbPdfToCsv
 
   def clean_amount(amount)
     return amount if amount.nil?
+    amount = amount.tr(' ', '')
     return 0 - amount[1..-2].to_f if amount[0] == '(' and amount[-1] == ')'
     if amount[-2..-1] == 'Cr'
       return amount[0..-3].tr(',', '').to_f
